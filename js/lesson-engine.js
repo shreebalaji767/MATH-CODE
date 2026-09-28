@@ -86,6 +86,8 @@ window.LESSONS = TOPICS.map((t,i)=>{
     javascript: jsFor(title),
     differenceDetailed: difference + " In programming, you must additionally choose data types, representations, termination conditions, and error handling.",
     idioticExplanation: idiotHook(title, summary),
+    mathIdioticExplanation: mathIdiotHook(title),
+    codeIdioticExplanation: idiotCodeHook(title),
     complexity: "Depends on the chosen algorithm and representation. For numerical methods, convergence and iteration count are part of practical complexity.",
     precision: "Exact mathematics may be replaced by finite machine numbers. Watch rounding, overflow, underflow, cancellation, tolerances, and domain errors.",
     exactVsApprox: "Exact result: represented symbolically or with exact integers/rationals when possible. Approximate result: represented with floating-point numbers or finite iterations.",
@@ -155,6 +157,49 @@ const IDIOTIC_HOOKS = {
   "Markov Chains":"A Markov process remembers only the current state, not the entire dramatic history. The future says, 'I don't care what happened five minutes ago.'",
   "Cryptography":"Cryptography turns mathematical structure into controlled secrecy. The computer gets a puzzle so difficult that unauthorized readers hopefully give up before the coffee gets cold."
 };
+function idiotCodeHook(title){
+  const q=title.toLowerCase();
+  if(q.includes("number")||q.includes("integer")||q.includes("arithmetic")) return "The computer is basically a very fast calculator with a strict diet: give it a representation, then tell it exactly which operation to perform.";
+  if(q.includes("fraction")) return "JavaScript does not have a magical Fraction type built into Number. If exact fractions matter, store numerator and denominator yourself instead of hoping 1/3 becomes a perfect decimal.";
+  if(q.includes("equation")) return "Math says 'find x'. Code says 'here is an algorithm that searches or calculates x'. The computer needs the recipe, not just the question.";
+  if(q.includes("function")) return "A mathematical function maps inputs to outputs. A JavaScript function is executable instructions that can also have side effects, throw errors, mutate data, or return nothing.";
+  if(q.includes("derivative")||q.includes("gradient")) return "The computer usually does not magically know the symbolic derivative. You either implement the derivative formula, approximate it numerically, or use automatic differentiation.";
+  if(q.includes("integral")) return "The computer usually adds many tiny pieces or uses a numerical integration algorithm. It does not literally draw an infinite number of rectangles.";
+  if(q.includes("matrix")||q.includes("vector")) return "A vector or matrix becomes an array in JavaScript. The math operation becomes loops over array indices, with dimensions checked before multiplication.";
+  if(q.includes("probability")||q.includes("statistics")||q.includes("distribution")) return "Probability becomes numbers, counts, samples, and random generators. Random output is not the same thing as guaranteed mathematical probability.";
+  if(q.includes("graph")||q.includes("tree")||q.includes("path")) return "A mathematical graph becomes data structures: arrays, objects, adjacency lists, or matrices. Algorithms then walk those structures.";
+  if(q.includes("prime")||q.includes("modular")||q.includes("gcd")||q.includes("number theory")) return "Number theory becomes integer algorithms. JavaScript gives you %, loops, and BigInt, but you still have to implement the theorem or algorithm.";
+  if(q.includes("floating")||q.includes("rounding")||q.includes("numerical")||q.includes("approx")) return "The computer stores finite approximations. A mathematically exact statement can therefore become a tolerance check such as Math.abs(a-b) < eps.";
+  if(q.includes("optimization")||q.includes("descent")) return "Optimization becomes an iterative loop: calculate the current value, calculate a direction, update the variables, and stop when a condition says 'good enough'.";
+  if(q.includes("recursion")||q.includes("dynamic programming")) return "The mathematical recurrence becomes function calls, a stack, or a table. The base case is the emergency brake that prevents the computer from recursing into the sun.";
+  if(q.includes("complex")) return "JavaScript Number does not natively store complex numbers as a pair. Use an object such as {re, im} and implement addition, multiplication, modulus, and other operations.";
+  return "The mathematical rule is not executable by itself. Code turns the rule into stored data + explicit operations + control flow + validation.";
+}
+function mathIdiotHook(title){
+  const q=title.toLowerCase();
+  if(q.includes("limit")) return "Actual idea: pick x-values closer and closer to the target and watch what f(x) approaches. The answer is the destination the values are heading toward.";
+  if(q.includes("derivative")) return "Actual idea: measure change per unit change at one point. For f(x)=x², the derivative is 2x, so at x=3 the instantaneous rate is 6.";
+  if(q.includes("integral")) return "Actual idea: add infinitely many tiny contributions. For area under f(x)=x from 0 to 2, the integral is 2.";
+  if(q.includes("linear equation")) return "Actual idea: preserve equality while isolating the unknown. For 2x+3=11, subtract 3, get 2x=8, then divide by 2: x=4.";
+  if(q.includes("quadratic")) return "Actual idea: solve ax²+bx+c=0. For x²-5x+6=0, factor to (x-2)(x-3)=0, so x=2 or x=3.";
+  if(q.includes("slope")) return "Actual idea: slope is rise/run. From (1,2) to (3,6), slope=(6-2)/(3-1)=2.";
+  if(q.includes("distance")) return "Actual idea: use the Pythagorean theorem on coordinate differences. From (0,0) to (3,4), distance=5.";
+  if(q.includes("probability")) return "Actual idea: probability measures how likely an event is. A fair coin has P(heads)=1/2.";
+  if(q.includes("mean")||q.includes("average")) return "Actual idea: add every value and divide by how many values there are. For 2,4,6 the mean is 12/3=4.";
+  if(q.includes("matrix multiplication")) return "Actual idea: each output cell is a row-by-column dot product. [[1,2],[3,4]]×[[5,6],[7,8]] gives [[19,22],[43,50]].";
+  if(q.includes("dot product")) return "Actual idea: multiply matching components and add them. [1,2,3]·[4,5,6]=4+10+18=32.";
+  if(q.includes("factorial")) return "Actual idea: n! = n×(n-1)×...×1. So 5!=5×4×3×2×1=120.";
+  if(q.includes("permutation")) return "Actual idea: order matters. Choosing 2 ordered items from 4 gives 4×3=12.";
+  if(q.includes("combination")) return "Actual idea: order does not matter. Choosing 2 people from 4 gives 4!/(2!2!)=6.";
+  if(q.includes("gcd")) return "Actual idea: GCD is the biggest integer dividing both numbers. gcd(48,18)=6.";
+  if(q.includes("modular")) return "Actual idea: keep only the remainder. 17 mod 5 = 2, just like a clock wraps around.";
+  if(q.includes("eigenvalue")) return "Actual idea: find a nonzero vector v where Av=λv. The matrix changes the vector's size by λ without changing its direction.";
+  if(q.includes("gradient")) return "Actual idea: the gradient collects all partial derivatives. For f(x,y)=x²+y², ∇f=(2x,2y).";
+  if(q.includes("fourier")) return "Actual idea: represent a signal as frequency components. A complicated waveform can be decomposed into simpler sine/cosine waves.";
+  if(q.includes("entropy")) return "Actual idea: entropy quantifies uncertainty. A fair coin has more uncertainty than a coin that is almost always heads.";
+  if(q.includes("graph")) return "Actual idea: vertices are objects and edges are relationships. A road map is a graph: cities are vertices and roads are edges.";
+  return "Actual idea: use the definition first, then calculate a concrete example. The silly sentence is only a memory hook; the definition and calculation are the real mathematics.";
+}
 function idiotHook(title, summary){
   if(IDIOTIC_HOOKS[title]) return IDIOTIC_HOOKS[title];
   const clean=summary.replace(/\.$/,"");
