@@ -98,3 +98,64 @@ window.LESSONS = TOPICS.map((t,i)=>{
     related: keywords.split("|").filter(Boolean)
   };
 });
+
+// Absurd-but-accurate memory hooks. Kept separate from formal definitions so humor never replaces mathematics.
+const IDIOTIC_HOOKS = {
+  "Numbers & Number Systems":"Numbers are the universe's LEGO bricks. Integer = whole brick, fraction = brick cut into pieces, irrational = brick with an endless decimal tantrum, complex = a two-coordinate weird brick.",
+  "Arithmetic":"Arithmetic is counting with rules. Imagine four pigeons fighting over three samosas: + brings them together, - removes some, × creates repeated groups, ÷ asks how many groups fit.",
+  "Fractions":"A fraction is pizza bureaucracy: the bottom says how many equal slices exist, the top says how many slices you stole.",
+  "Percentages":"Percent means 'out of 100'. If 20% of your brain is working, congratulations: the other 80% is probably watching the loading spinner.",
+  "Variables & Constants":"A variable is a labeled box whose contents can change. A constant is the box whose contents refuse to move because it has signed a contract.",
+  "Linear Equations":"An equation is a perfectly balanced seesaw. If you remove 7 from the left, remove 7 from the right, or the mathematical police arrive.",
+  "Quadratic Equations":"A quadratic is a parabola wearing an algebra costume. Sometimes it has two answers, one answer, or zero real answers.",
+  "Functions":"A function is a vending machine: put x in, press the button, and exactly one output comes out. If it spits out three different snacks for one coin, it is not a function.",
+  "Function Composition":"Composition is a mathematical assembly line: function A makes a sandwich, function B eats that sandwich, and the final answer is whatever survives.",
+  "Limits":"A limit asks, 'Where are you heading?' not 'Did you actually arrive?' Like walking toward the fridge while insisting you are only going to look.",
+  "Derivatives":"A derivative is the speedometer of mathematics. It tells you how violently the output is changing right now.",
+  "Chain Rule":"The chain rule says nested functions are onion mathematics: peel one layer, account for it, then peel the next.",
+  "Definite Integrals":"An integral is mathematical vacuuming: collect tiny pieces of area until the entire interval has been sucked into one number.",
+  "Gradient":"The gradient is a hill's angry arrow saying, 'UP THIS WAY!' Optimization usually walks in the opposite direction because it wants to go downhill.",
+  "Matrices":"A matrix is a spreadsheet that went to university and came back with opinions about linear transformations.",
+  "Matrix Multiplication":"Matrix multiplication is not normal multiplication. It is a very specific handshake between rows and columns. Mess up the handshake and mathematics throws you out.",
+  "Eigenvalues & Eigenvectors":"An eigenvector is the vector that gets shoved by a transformation but stubbornly keeps pointing in the same direction. The eigenvalue tells how much it got stretched or squashed.",
+  "Probability":"Probability is mathematics admitting, 'I don't know what will happen, but I can measure my uncertainty.'",
+  "Expected Value":"Expected value is the long-run average of a random game. It does NOT promise that today's unlucky pigeon will receive the average outcome.",
+  "Variance & Standard Deviation":"Variance measures how spread out the data is. Standard deviation is variance after taking it out of its squared costume.",
+  "Bayes' Theorem":"Bayes is the mathematical detective: start with a suspicion, find evidence, then update how suspicious you should be.",
+  "Recursion":"Recursion is a function calling itself while holding a smaller problem. It is basically saying, 'I can solve this, but first let me make a tiny copy of my headache.'",
+  "Factorials":"n! means multiply all positive integers down to 1. Five factorial is five people entering an elevator and asking how many possible ordering arrangements exist.",
+  "Permutations":"Permutations care about order. ABC and BAC are different because mathematics is apparently very picky about seating arrangements.",
+  "Combinations":"Combinations do not care about order. Choosing A, B, C is the same team as choosing C, A, B. Nobody cares who entered the room first.",
+  "Graphs":"A graph is dots connected by lines. Congratulations: you have reinvented a city map, social network, and many computer algorithms with a handful of dots.",
+  "Shortest Paths":"Shortest path asks which route gets you there with the least total cost. It is Google Maps after drinking a mathematics textbook.",
+  "Modular Arithmetic":"Modular arithmetic is clock mathematics. After 12, the numbers say, 'Nope, back to 1.'",
+  "Floating-Point Numbers":"Floating-point numbers are computers saying, 'I can store approximately 0.1, please do not ask me to explain why three 0.1s may not behave like your school notebook.'",
+  "Gradient Descent":"Gradient descent is walking downhill while repeatedly asking, 'Which direction makes the number smaller?' Very sophisticated. Also basically a confused hiker.",
+  "Dynamic Programming":"Dynamic programming means stop solving the same stupid subproblem 900 times. Solve it once, remember it, and reuse the answer.",
+  "Ordinary Differential Equations":"An ODE describes how something changes. Instead of asking where the car is, it often starts by describing how the car's position changes.",
+  "Complex Numbers":"Complex numbers are not 'fake numbers'. They are numbers with an imaginary component because real numbers alone refused to cooperate with equations like x² + 1 = 0.",
+  "Sets":"A set is a mathematical bag of distinct objects. If you put the same sock into the bag five times, the set says, 'Cute, but that is still one sock.'",
+  "Boolean Algebra":"Boolean algebra is mathematics with only two moods: TRUE and FALSE. It is the world's smallest emotional support system.",
+  "Entropy":"Entropy measures uncertainty/information. A completely predictable message is boring; a surprising message carries more information.",
+  "Convolution":"Convolution is sliding one pattern across another and repeatedly multiplying-and-adding. It is a mathematical windshield wiper for signals.",
+  "Fourier Transform":"Fourier analysis says a complicated signal can be treated as a crowd of simple waves. Mathematics basically opens a song and asks, 'Which frequencies are hiding in here?'",
+  "Taylor Series":"Taylor series approximates a function using a pile of derivatives. It is mathematics building a complicated machine out of increasingly detailed local Lego pieces.",
+  "Newton-Raphson":"Newton's method repeatedly guesses a root, draws a tangent, and lets the tangent make the next guess. It is educated guessing with calculus.",
+  "Lagrange Multipliers":"Lagrange multipliers solve constrained optimization by introducing another variable whose job is essentially to stand nearby and yell, 'Remember the constraint!'",
+  "Nash Equilibrium":"A Nash equilibrium is a situation where nobody can improve their payoff by changing strategy alone. Everyone is stuck thinking, 'If THEY won't move, why should I?'",
+  "Backpropagation":"Backpropagation is the chain rule marching backward through a computational graph, assigning blame to earlier parameters for the final error.",
+  "Automatic Differentiation":"Automatic differentiation tracks tiny derivative bookkeeping through the operations your program actually performs. It is calculus with a clipboard.",
+  "Principal Component Analysis":"PCA rotates the data so the first direction captures as much variation as possible. Imagine a messy cloud of points and a very bossy arrow saying, 'Everyone line up this way.'",
+  "Topological Spaces":"Topology studies what counts as 'nearby' without caring about exact ruler distances. Imagine stretching a rubber sheet while refusing to tear it.",
+  "Compactness":"Compactness is a mathematical way of saying certain infinite-looking behavior can still be controlled by finite information. Infinite nonsense, but organized.",
+  "Groups":"A group is a collection of operations that follows strict rules. Think of it as a club where identity, inverses, and associativity are the bouncers.",
+  "Category Theory":"Category theory studies objects through the arrows between them. Instead of obsessing over every object's internal organs, it asks how things connect.",
+  "Brownian Motion":"Brownian motion is random movement with continuous-time mathematics. Picture a microscopic drunk ant wandering around while probability writes down its autobiography.",
+  "Markov Chains":"A Markov process remembers only the current state, not the entire dramatic history. The future says, 'I don't care what happened five minutes ago.'",
+  "Cryptography":"Cryptography turns mathematical structure into controlled secrecy. The computer gets a puzzle so difficult that unauthorized readers hopefully give up before the coffee gets cold."
+};
+function idiotHook(title, summary){
+  if(IDIOTIC_HOOKS[title]) return IDIOTIC_HOOKS[title];
+  const clean=summary.replace(/\.$/,"");
+  return `Think of “${title}” as a weird machine. ${clean}. The machine's job is to follow precise rules; the silly mental picture is only there to help your brain remember those rules.`;
+}
