@@ -1,6 +1,40 @@
 const completed=new Set(JSON.parse(localStorage.getItem('mc-completed')||'[]'));
 const $=s=>document.querySelector(s);
-const lessons=window.LESSONS||[];
+let lessons=window.LESSONS||[];
+
+// Safety fallback: if one lesson-engine script fails, the curriculum still renders
+// directly from the source topic catalog instead of showing "No topics found".
+if(!lessons.length && Array.isArray(window.TOPICS)){
+  lessons=window.TOPICS.map((t,i)=>{
+    const [field,level,title,summary,math,code,difference,keywords]=t;
+    const words=String(keywords||"").split("|").filter(Boolean);
+    return {
+      id:i,field,level,title,summary,math,code,difference,keywords:words,
+      definition:math,
+      notation:"Use the symbols and notation introduced by the definition.",
+      formula:"The definition/law is the primary mathematical rule for this topic.",
+      intuition:summary,
+      humanMethod:"Start with the definition → identify the known values → apply the rule step by step → check the result.",
+      representation:code,
+      javascript:"// The curriculum engine could not load this lesson's generated example.\\n// Start from the mathematical representation above and implement it step by step.",
+      differenceDetailed:difference,
+      idioticExplanation:"🤪 First understand the real rule. The silly version is only a memory hook: imagine the concept as a weird machine that follows strict mathematical rules.",
+      mathIdioticExplanation:"🤪 Do one tiny example by hand first. If you cannot calculate the small example, the computer has no chance of magically understanding it.",
+      codeIdioticExplanation:"🤪 Code needs the recipe: represent the mathematical objects, perform the operations, handle edge cases, then verify the answer.",
+      complexity:"Depends on the algorithm and representation.",
+      precision:"Watch rounding, finite machine numbers, overflow, underflow and domain errors.",
+      exactVsApprox:"Exact mathematics uses exact symbolic/integer/rational representations when possible; numerical code often produces approximations.",
+      mistakes:"Do not confuse a mathematical object with its JavaScript representation. Validate inputs and respect domain restrictions.",
+      example:"Take a small valid example, calculate it by hand, then reproduce the same steps in JavaScript.",
+      practice:[
+        "Explain the definition in your own words.",
+        "Work one small numerical example by hand.",
+        "Implement the rule in JavaScript and test an edge case."
+      ],
+      related:words
+    };
+  });
+}
 const fields=[...new Set(lessons.map(t=>t.field))];
 $('#count').textContent=lessons.length;
 fields.forEach(f=>$('#field').insertAdjacentHTML('beforeend',`<option>${esc(f)}</option>`));
