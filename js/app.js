@@ -1,6 +1,45 @@
-const completed=new Set(JSON.parse(localStorage.getItem('mc-completed')||'[]'));
+let completed=new Set();
+try{completed=new Set(JSON.parse(localStorage.getItem('mc-completed')||'[]'));}catch(e){localStorage.removeItem('mc-completed');}
 const $=s=>document.querySelector(s);
-let lessons=window.LESSONS||[];
+let lessons=Array.isArray(window.LESSONS)?window.LESSONS:[];
+
+// Prefer the source catalog if the lesson engine did not initialize correctly.
+if(!lessons.length && Array.isArray(window.TOPICS)) lessons=window.TOPICS.map((t,i)=>({
+  id:i,field:t[0],level:t[1],title:t[2],summary:t[3],math:t[4],code:t[5],difference:t[6],
+  keywords:String(t[7]||'').split('|').filter(Boolean),definition:t[4],
+  notation:'See the mathematical definition and notation for this topic.',
+  formula:'Apply the definition, theorem, law, or standard algorithm for this topic.',
+  intuition:t[3],humanMethod:'Define the problem → identify known values → apply the rule → verify the result.',
+  representation:t[5],javascript:'// Basic implementation: represent the mathematical objects, then apply the rule.',
+  differenceDetailed:t[6],idioticExplanation:'🤪 Learn the real rule first; the silly picture is only a memory hook.',
+  mathIdioticExplanation:'🤪 Work one tiny example by hand before asking the computer to do it.',
+  codeIdioticExplanation:'🤪 Code needs the recipe: data + operations + control flow + validation.',
+  complexity:'Depends on the chosen algorithm.',precision:'Watch domain restrictions, rounding and machine-number limits.',
+  exactVsApprox:'Mathematics can be exact; numerical JavaScript often uses finite approximations.',
+  mistakes:'Check domains, dimensions, edge cases and representation.',example:'Work a small example manually, then reproduce it in JavaScript.',
+  practice:['Explain the definition.','Solve a small example by hand.','Implement and test an edge case.'],related:String(t[7]||'').split('|').filter(Boolean),levelNote:'Connect the formal idea to a concrete example and then to an algorithm.'
+}));
+
+// Last-resort catalog: the page must never report zero topics because one optional
+// curriculum script failed to execute. This is only a bootstrap safety net.
+if(!lessons.length){
+  const emergency=[
+    ['Foundations','Foundation','Numbers','Numbers and number systems.'],
+    ['Arithmetic','Foundation','Arithmetic','Operations, fractions, ratios and percentages.'],
+    ['Algebra','Foundation','Variables and Equations','Symbols, expressions and equations.'],
+    ['Geometry','Foundation','Geometry','Shapes, measurement and spatial reasoning.'],
+    ['Trigonometry','Core','Trigonometric Functions','Angles, sine, cosine and tangent.'],
+    ['Calculus','Core','Limits','How functions behave as inputs approach a value.'],
+    ['Calculus','Core','Derivatives','Rates of change and slopes.'],
+    ['Calculus','Core','Integrals','Accumulation and area.'],
+    ['Linear Algebra','Core','Vectors and Matrices','Vectors, matrices and linear transformations.'],
+    ['Probability','Core','Probability','Mathematical models of uncertainty.'],
+    ['Statistics','Core','Mean and Variance','Describing data and its spread.'],
+    ['Discrete Mathematics','Core','Logic','Formal reasoning with true/false statements.']
+  ];
+  lessons=emergency.map((x,i)=>({id:i,field:x[0],level:x[1],title:x[2],summary:x[3],math:x[3],code:'Use JavaScript values, arrays and functions to represent this idea.',difference:'Mathematics defines the abstract object; code implements a finite representation and algorithm.',keywords:[x[2]],definition:x[3],notation:'Use standard mathematical notation for the concept.',formula:'Apply the definition or standard law.',intuition:x[3],humanMethod:'Define → calculate → verify.',representation:'Represent the mathematical objects with suitable JavaScript data.',javascript:'// Implement the mathematical rule here.',differenceDetailed:'Math is the abstract model; code is the executable representation.',idioticExplanation:'🤪 The brain learns the rule; the computer needs the recipe.',mathIdioticExplanation:'🤪 Start with a tiny hand-worked example.',codeIdioticExplanation:'🤪 Turn the math recipe into data and operations.',complexity:'Depends on the algorithm.',precision:'Check rounding and domain limits.',exactVsApprox:'Exact mathematics may become an approximation in numerical code.',mistakes:'Validate inputs and edge cases.',example:'Start with the smallest useful example.',practice:['Explain it.','Solve one example.','Code one example.'],related:[x[2]],levelNote:'Build intuition, then formalize it.'}));
+  console.warn('Math→Code emergency curriculum loaded. Check the curriculum script for a JavaScript error.');
+}
 
 // Safety fallback: if one lesson-engine script fails, the curriculum still renders
 // directly from the source topic catalog instead of showing "No topics found".
@@ -37,6 +76,7 @@ if(!lessons.length && Array.isArray(window.TOPICS)){
 }
 const fields=[...new Set(lessons.map(t=>t.field))];
 $('#count').textContent=lessons.length;
+console.info('Math→Code curriculum loaded:',lessons.length,'lessons');
 fields.forEach(f=>$('#field').insertAdjacentHTML('beforeend',`<option>${esc(f)}</option>`));
 function filtered(){const q=$('#search').value.toLowerCase(),f=$('#field').value,l=$('#level').value;return lessons.filter(t=>(f==='all'||t.field===f)&&(l==='all'||t.level===l)&&(!q||[t.field,t.level,t.title,t.summary,t.keywords.join(' ')].join(' ').toLowerCase().includes(q)));}
 function renderChips(){const a=$('#field').value;$('#chips').innerHTML='<button class="chip '+(a==='all'?'active':'')+'" data-f="all">All</button>'+fields.map(f=>`<button class="chip ${a===f?'active':''}" data-f="${esc(f)}">${esc(f)}</button>`).join('');document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{$('#field').value=b.dataset.f;render();});}
