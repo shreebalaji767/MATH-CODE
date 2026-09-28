@@ -170,3 +170,82 @@ button,.btn,.chip,.topic-btn,.complete,.panel button{touch-action:manipulation}
   .code-actions{justify-content:stretch}
   .code-actions .lesson-tool{width:100%}
 }
+
+
+/* =========================================================
+   ANY-DEVICE RESPONSIVE LAYOUT
+   Desktop → tablet → phone → very small screens
+   ========================================================= */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+img,svg,video,canvas{max-width:100%;height:auto}
+pre{max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+button,input,select,textarea{font:inherit;max-width:100%}
+.nav{flex-wrap:wrap;gap:12px}
+.nav nav{display:flex;flex-wrap:wrap;gap:8px}
+.hero,.section{width:100%;box-sizing:border-box}
+.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.translate{min-width:0}
+#list{min-width:0;max-height:70vh;overflow:auto}
+#detail{min-width:0}
+.detail-top{gap:16px;flex-wrap:wrap}
+.detail-top>div{min-width:0;flex:1 1 280px}
+.boxes{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.play{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.panel{min-width:0}
+textarea,.code,pre{box-sizing:border-box;width:100%}
+.lesson-nav{display:flex;flex-wrap:wrap;gap:8px}
+.lesson-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.code-actions{display:flex;justify-content:flex-end;margin-bottom:6px}
+.mini-idiot,.code-idiot-box,.idiot-box{max-width:100%;box-sizing:border-box}
+.complete,.btn,.lesson-tool,.chip,.topic-btn{touch-action:manipulation}
+
+@media (max-width: 900px){
+  .nav{padding:12px 18px}
+  .hero{grid-template-columns:1fr!important}
+  .code-card{order:2}
+  .section{padding-left:18px!important;padding-right:18px!important}
+  .translate{grid-template-columns:1fr!important}
+  #list{max-height:280px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px}
+  .topic-btn{min-height:48px}
+}
+
+@media (max-width: 600px){
+  .nav{padding:10px 14px}
+  .nav .logo{font-size:18px}
+  .nav nav{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px}
+  .nav nav a{white-space:nowrap}
+  .hero h1{font-size:clamp(34px,10vw,52px)!important;line-height:1.02}
+  .heading{display:block!important}
+  .heading>p{margin-top:10px}
+  .actions{flex-direction:column;align-items:stretch}
+  .actions .btn{width:100%;box-sizing:border-box;text-align:center}
+  .stats{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px}
+  .stats span:last-child{grid-column:1/-1}
+  .filters{display:grid!important;grid-template-columns:1fr!important}
+  .filters input,.filters select{width:100%;box-sizing:border-box}
+  .chips{overflow-x:auto;flex-wrap:nowrap!important;padding-bottom:5px}
+  .chip{white-space:nowrap}
+  #list{grid-template-columns:1fr;max-height:300px}
+  .detail-top{display:block}
+  .detail-top .complete{width:100%;margin-top:12px}
+  .lesson-nav{overflow-x:auto;flex-wrap:nowrap;padding-bottom:5px}
+  .lesson-nav a{white-space:nowrap}
+  .lesson-tools{justify-content:center}
+  .lesson-tools span{width:100%;text-align:center;order:-1}
+  .boxes{grid-template-columns:1fr!important}
+  .box{overflow:hidden}
+  .formula,.code{font-size:12px!important}
+  .practice-list>div{display:block}
+  .play{grid-template-columns:1fr!important}
+  #editor{min-height:240px}
+  .progress{display:flex!important;flex-direction:column;align-items:center;text-align:center}
+}
+
+@media (max-width: 380px){
+  .section{padding-left:12px!important;padding-right:12px!important}
+  .hero{padding-left:12px!important;padding-right:12px!important}
+  .stats{grid-template-columns:1fr!important}
+  .stats span:last-child{grid-column:auto}
+  .btn,.complete{font-size:14px}
+}
