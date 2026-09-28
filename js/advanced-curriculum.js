@@ -158,4 +158,4 @@ const ADVANCED_TOPICS = [
 ["Statistics","Advanced","Principal Component Analysis","Transform correlated variables into orthogonal directions of maximal variance.","PCA uses covariance eigendecomposition or SVD.","Center data and compute SVD.","Scaling and centering choices alter the result, and numerical eigensolvers approximate components.","PCA|dimensionality reduction"]
 ];
 
-window.TOPICS.push(...ADVANCED_TOPICS);
+if (Array.isArray(window.TOPICS)) window.TOPICS.push(...ADVANCED_TOPICS);
