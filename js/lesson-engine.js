@@ -73,18 +73,71 @@ function levelNote(level){
   return "Separate the mathematical theorem from its numerical implementation. State assumptions, approximation error, and stability.";
 }
 
-const SOURCE_TOPICS = Array.isArray(window.TOPICS) ? window.TOPICS : [];
+
+const DEEP_CONTENT = {
+  "Numbers & Number Systems":{
+    why:"Programming constantly stores quantities, counts, indices, measurements and identifiers. Knowing which number system you are using prevents invalid operations and precision surprises.",
+    definition:"Natural numbers are counting numbers (commonly 1,2,3,...); whole numbers add 0; integers include negatives; rationals are ratios of integers with nonzero denominator; irrationals are real numbers that cannot be written as such a ratio; the real numbers combine rational and irrational numbers; complex numbers have the form a+bi where i²=-1.",
+    notation:"N = {1,2,3,...} (convention varies), Z = {...,-2,-1,0,1,2,...}, Q = {a/b : a,b∈Z,b≠0}, R = real numbers, C = {a+bi : a,b∈R}.",
+    formula:"i² = -1;  |a+bi| = √(a²+b²).",
+    example: deep.example,\n    actualExample: deep.example,\n    "Classify -3, 0, 1/2, √2, 5 and 2+3i. -3 is an integer and real; 0 is whole/integer/real; 1/2 is rational/real; √2 is irrational/real; 5 is natural/whole/integer/rational/real; 2+3i is complex but not real.",
+    steps:"1. Ask whether the value is an integer. 2. If not, ask whether it can be written as a ratio of integers. 3. If it is real, determine rational vs irrational. 4. If it has a nonzero imaginary part, it belongs to C but not R.",
+    code:"JavaScript Number represents ordinary finite-precision real-like values. BigInt represents arbitrary-size integers. Complex numbers require a custom pair such as {re:2, im:3}.",
+    js:"const a = -3;\nconst b = 1 / 2;\nconst huge = 123456789012345678901234567890n;\nconst z = { re: 2, im: 3 };\n\nfunction magnitude(z) {\n  return Math.hypot(z.re, z.im);\n}\nconsole.log(magnitude(z)); // √13",
+    mistakes: deep.mistakes,\n    "Do not assume every decimal is exactly representable. Do not mix Number and BigInt in arithmetic. Do not treat a complex number as an ordinary Number."
+  },
+  "Arithmetic":{
+    why:"Arithmetic is the basic operation layer underneath algorithms, counters, measurements, money calculations and almost every numerical program.",
+    definition:"Arithmetic studies operations on numbers: addition, subtraction, multiplication and division, together with properties such as commutativity, associativity and distributivity.",
+    notation:"a+b, a-b, ab, a/b; order of operations follows grouping, exponentiation, multiplication/division, then addition/subtraction.",
+    formula:"a(b+c)=ab+ac; a+b=b+a; ab=ba; a(bc)=(ab)c.",
+    example:"For 7 + 3×4, multiplication happens first: 3×4=12, then 7+12=19. With parentheses, (7+3)×4=40.",
+    steps:"Translate the expression → apply parentheses → apply powers → multiply/divide left to right → add/subtract left to right → verify.",
+    code:"JavaScript maps +, -, *, / and ** directly to arithmetic, but / produces a floating-point Number result.",
+    js:"const result = 7 + 3 * 4; // 19\nconst changed = (7 + 3) * 4; // 40\nconsole.log(result, changed);",
+    mistakes:"Operator precedence, accidental string concatenation with +, division by zero, and floating-point equality checks."
+  },
+  "Fractions":{
+    why:"Fractions represent exact ratios. They are essential when decimal approximation would lose information.",
+    definition:"A fraction a/b represents a ratio of integers a and b with b≠0. Equivalent fractions have the same value, such as 1/2=2/4.",
+    notation:"a/b, b≠0; reduce by dividing numerator and denominator by gcd(a,b).",
+    formula:"a/b + c/d = (ad+bc)/bd; (a/b)(c/d)=ac/bd.",
+    example:"1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2.",
+    steps:"Find a common denominator → convert each fraction → perform the operation → reduce using GCD → check the sign and denominator.",
+    code:"For exact rational arithmetic, store numerator and denominator instead of converting immediately to Number.",
+    js:"function gcd(a,b){ while(b!==0){ [a,b]=[b,a%b]; } return Math.abs(a); }\nfunction fraction(n,d){ if(d===0) throw new Error('denominator cannot be zero'); const g=gcd(n,d); return {n:n/g,d:d/g}; }\nfunction add(a,b){ return fraction(a.n*b.d+b.n*a.d,a.d*b.d); }\nconsole.log(add(fraction(1,3),fraction(1,6))); // {n:1,d:2}",
+    mistakes:"Using decimal conversion when exactness matters, allowing denominator 0, and forgetting to reduce or normalize signs."
+  }
+};
+function deepFor(title, base){
+  return DEEP_CONTENT[title] || {
+    why:"This topic exists because mathematics gives a precise model for a pattern, quantity, relationship or structure that programmers may need to represent and compute.",
+    definition:base.math,
+    notation:base.title+" uses the notation introduced by its mathematical definition.",
+    formula:"Use the definition, theorem, identity or standard law stated for this topic.",
+    example:"Take the smallest non-trivial example of "+base.title+", substitute concrete values, calculate each step, and verify the result independently.",
+    steps:"1. State the mathematical object. 2. Identify known and unknown quantities. 3. Apply the definition or theorem. 4. Calculate step by step. 5. Check the domain and result.",
+    code:base.code,
+    js:"// Represent the mathematical objects first.\n// Then translate each mathematical operation into explicit JavaScript.\nfunction solve(input) {\n  // validate → calculate → verify\n  return input;\n}",
+    mistakes:"Confusing mathematical notation with executable code; ignoring domain restrictions; using floating-point equality where tolerance or exact arithmetic is required."
+  };
+}
+\nconst SOURCE_TOPICS = Array.isArray(window.TOPICS) ? window.TOPICS : [];
 window.LESSONS = SOURCE_TOPICS.map((t,i)=>{
   const [field,level,title,summary,math,code,difference,keywords]=t;
+  const deep=deepFor(title,{title,math,code});
+
   return {
     id:i, field, level, title, summary, math, code, difference, keywords,
-    definition: math,
-    notation: FORMULAS[title] || "Use the notation given by the definition; symbols describe mathematical objects, not storage locations.",
-    formula: FORMULAS[title] || "No single formula defines this topic; the definition, laws, or algorithm are the primary mathematical object.",
+    definition: deep.definition,
+    why: deep.why,
+    steps: deep.steps,
+    notation: deep.notation || FORMULAS[title] || "Use the notation given by the definition; symbols describe mathematical objects, not storage locations.",
+    formula: deep.formula || FORMULAS[title] || "No single formula defines this topic; the definition, laws, or algorithm are the primary mathematical object.",
     intuition: summary + " Think of the definition as the rule; examples show what the rule does.",
-    humanMethod: "Write the definition → identify known values and constraints → perform the mathematical transformation → check the result against the original conditions.",
-    representation: code,
-    javascript: jsFor(title),
+    humanMethod: deep.steps,\n     "Write the definition → identify known values and constraints → perform the mathematical transformation → check the result against the original conditions.",
+    representation: deep.code,
+    javascript: deep.js || jsFor(title),
     differenceDetailed: difference + " In programming, you must additionally choose data types, representations, termination conditions, and error handling.",
     idioticExplanation: idiotHook(title, summary),
     mathIdioticExplanation: mathIdiotHook(title),
