@@ -736,6 +736,35 @@ const fieldDescriptions = {
   "Advanced Foundations":"Concepts that connect mathematics, modeling and computational thinking."
 };
 
+
+Object.assign(fieldDescriptions, {
+  "Topology":"Open sets, continuity, compactness and abstract spaces.",
+  "Differential Geometry":"Smooth curves, surfaces, manifolds, curvature and geodesics.",
+  "Algebraic Geometry":"Polynomial equations viewed through geometric and algebraic structure.",
+  "Category Theory":"Objects, morphisms and universal structure-preserving constructions.",
+  "Stochastic Processes":"Random systems evolving through time and their probabilistic structure.",
+  "Stochastic Calculus":"Calculus for stochastic processes, especially Brownian-driven models.",
+  "Representation Theory":"Study algebraic structures through linear actions and representations.",
+  "Harmonic Analysis":"Fourier, wavelet, orthogonality and frequency-based mathematical analysis.",
+  "Measure Theory":"Rigorous foundations of measure, measurable functions and integration.",
+  "Functional Analysis":"Infinite-dimensional vector spaces, norms, operators and functional structure.",
+  "Partial Differential Equations":"Equations involving derivatives in several independent variables and their numerical solutions.",
+  "Mathematical Logic":"Formal reasoning, proof systems, computability and logical foundations.",
+  "Coding Theory":"Mathematics of reliable communication, redundancy and error correction.",
+  "Mathematical Physics":"Mathematical structures used to model physical laws and dynamical systems.",
+  "Mathematical Economics":"Optimization, equilibrium, uncertainty and quantitative economic models.",
+  "Actuarial Mathematics":"Probability, survival, interest and risk mathematics for contingent cash flows.",
+  "Machine Learning Mathematics":"Optimization, probability, linear algebra and calculus underlying machine learning.",
+  "Approximation Theory":"Mathematical methods for approximating functions and controlling approximation error.",
+  "Calculus of Variations":"Optimization of functionals and the differential equations describing stationary functions.",
+  "Dynamical Systems":"Long-term behavior, stability, phase space and parameter-dependent dynamics.",
+  "Game Theory":"Mathematical models of strategic interaction and equilibrium.",
+  "Operations Research":"Optimization, allocation, routing, scheduling and decision models.",
+  "Special Functions":"Important non-elementary functions arising across analysis, physics and probability.",
+  "Probability & Statistics":"Advanced probability distributions, inference, transforms and statistical models.",
+  "Mathematical Foundations of Computation":"Formal models of computation, logic, languages, types and program correctness."
+});
+
 const extras = [];
 for (const row of CURRICULUM) {
   const [field, level, title, summary, math, code, difference, keywords] = row;
