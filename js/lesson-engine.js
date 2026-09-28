@@ -85,6 +85,7 @@ window.LESSONS = TOPICS.map((t,i)=>{
     representation: code,
     javascript: jsFor(title),
     differenceDetailed: difference + " In programming, you must additionally choose data types, representations, termination conditions, and error handling.",
+    idioticExplanation: idiotHook(title, summary),
     complexity: "Depends on the chosen algorithm and representation. For numerical methods, convergence and iteration count are part of practical complexity.",
     precision: "Exact mathematics may be replaced by finite machine numbers. Watch rounding, overflow, underflow, cancellation, tolerances, and domain errors.",
     exactVsApprox: "Exact result: represented symbolically or with exact integers/rationals when possible. Approximate result: represented with floating-point numbers or finite iterations.",
