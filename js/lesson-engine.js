@@ -73,7 +73,8 @@ function levelNote(level){
   return "Separate the mathematical theorem from its numerical implementation. State assumptions, approximation error, and stability.";
 }
 
-window.LESSONS = TOPICS.map((t,i)=>{
+const SOURCE_TOPICS = Array.isArray(window.TOPICS) ? window.TOPICS : [];
+window.LESSONS = SOURCE_TOPICS.map((t,i)=>{
   const [field,level,title,summary,math,code,difference,keywords]=t;
   return {
     id:i, field, level, title, summary, math, code, difference, keywords,
