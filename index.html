@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Math → Code Translator</title>
+<meta name="description" content="A static mathematics to JavaScript learning system: learn the math, see how it works, implement it, and understand the difference.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="nav"><a class="logo" href="#"><b>∑→</b> Math → Code</a><nav><a href="#curriculum">Curriculum</a><a href="#translator">Translator</a><a href="#playground">Playground</a><a href="#progress">Progress</a></nav></header>
+<main>
+<section class="hero"><div><small>MATHEMATICS × PROGRAMMING</small><h1>Understand the math.<br><em>Then make the computer understand it.</em></h1><p>A browser-only mathematics curriculum connecting concepts to algorithms and JavaScript — with the differences made explicit.</p><div class="actions"><a class="btn dark" href="#curriculum">Explore curriculum</a><a class="btn" href="#translator">Open translator</a></div><div class="stats"><span><b id="count">0</b> topics mapped</span><span><b>100%</b> static</span><span><b>0</b> accounts</span></div></div><div class="code-card"><div class="bar">● ● ● &nbsp; translation.js</div><pre>// Mathematics
+f(x) = x² + 2x + 1
+
+// JavaScript
+function f(x) {
+  return x ** 2 + 2 * x + 1;
+}
+
+// Difference
+Math is a formal object.
+Code is an executable procedure.</pre></div></section>
+<section id="curriculum" class="section"><div class="heading"><div><small>THE CURRICULUM</small><h2>From counting to advanced mathematics.</h2></div><p>Search the full catalog. Each topic follows <b>Math → How it works → Code → Difference.</b></p></div><div class="filters"><input id="search" placeholder="Search topics, e.g. derivative, Bayes, eigenvalue"><select id="field"><option value="all">All fields</option></select><select id="level"><option value="all">All levels</option><option>Foundation</option><option>Core</option><option>Advanced</option></select></div><div id="chips" class="chips"></div><div id="grid" class="grid"></div></section>
+<section id="translator" class="section dark"><div class="heading"><div><small>TRANSLATOR</small><h2>See the translation, not just the answer.</h2></div><p>Open any topic to compare the mathematical model with a computational implementation.</p></div><div class="translate"><aside id="list"></aside><article id="detail"></article></div></section>
+<section id="playground" class="section"><div class="heading"><div><small>PLAYGROUND</small><h2>Experiment with JavaScript.</h2></div><p>No server. Your code runs in this browser.</p></div><div class="play"><div class="panel"><header>JavaScript <button id="run">Run ▶</button></header><textarea id="editor" spellcheck="false">const x = 5;
+const result = x ** 2 + 2 * x + 1;
+console.log(result);</textarea></div><div class="panel"><header>Output <button id="clear">Clear</button></header><pre id="output">Ready.</pre></div></div></section>
+<section id="progress" class="section"><div class="heading"><div><small>NO ACCOUNT NEEDED</small><h2>Progress stays in your browser.</h2></div><p>Completed topics are stored with localStorage. No database, login or signup.</p></div><div class="progress"><div id="ring"><span id="pct">0%</span></div><div><h3 id="pTitle">Start exploring</h3><p id="pText">Open a topic and mark it complete.</p><button id="reset" class="btn danger">Reset local progress</button></div></div></section>
+</main><footer><span>Math → Code Translator</span><span>Static • No DB • No Login • No Signup</span></footer>
+<script src="js/topics.js"></script><script src="js/app.js"></script>
+</body></html>
