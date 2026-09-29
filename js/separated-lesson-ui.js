@@ -53,34 +53,24 @@
     return clean(t.why) || ("This concept exists to give a precise rule for describing, calculating, comparing, or reasoning about "+clean(t.title||"this concept")+".");
   }
 
-  function absurdDefinition(t){
+  function absurdDefinitionParts(t){
     var title=clean(t.title)||"this concept";
     var formal=clean(t.definition||t.math)||"a precise mathematical concept";
     var why=clean(t.why)||"It gives us a precise way to describe or reason about the idea.";
     var notation=clean(t.notation)||"Use the notation appropriate to the definition.";
-    return "🤪 ABSURD DEFINITION — "+title+"\\n\\n"+
-      "I AM ABOUT TO EXPLAIN "+title+" AND I HAVE ABSOLUTELY NO BUSINESS BEING ALLOWED NEAR A WHITEBOARD.\\n\\n"+
-      "THE ACTUAL FACT HIDING INSIDE MY NONSENSE: "+formal+"\\n\\n"+
-      "NOW THE NONSENSE STARTS: "+title+
-      " is when the mathematical universe puts on one shoe, forgets where it left the other shoe, and then says, 'YES, THIS IS FINE, PLEASE CHECK THE CONDITIONS.' "+
-      "I personally would check the fridge, the ceiling fan, three potatoes and possibly the moon, but mathematics is annoyingly more organised than me. "+
-      "The real rule is the definition above. Everything else I say is suspicious.\\n\\n"+
-      "HERE IS MY EXTREMELY PROFESSIONAL IDIOT METHOD: First I look at the object. Then I stare at it until it becomes uncomfortable. "+
-      "Then I check the actual defining conditions. If the required conditions are satisfied, I shout 'CONGRATULATIONS, YOU ARE "+title+"!' "+
-      "If they are not satisfied, I throw a tiny imaginary chair at the object and say 'NO, NICE TRY.' "+
-      "The chair has no mathematical significance. I just felt it was necessary.\\n\\n"+
-      "WHY DOES THIS THING EXIST? "+why+" "+
-      "Translation from idiot language: people needed a precise rule so they could talk about the same mathematical idea without everybody inventing their own version after eating a sandwich. "+
-      "That precise rule is what matters.\\n\\n"+
-      "HOW DO I KNOW I AM NOT MAKING EVERYTHING UP? "+notation+" "+
-      "I use the mathematical properties that actually define the concept. "+
-      "I do NOT decide based on appearance, vibes, horoscope, potato temperature, or whether the number looks confident. "+
-      "If the definition says a condition is required, that condition is required. My brain may be wearing a traffic cone, but the mathematics is still driving the bus.\\n\\n"+
-      "FINAL IDIOT CHECK: "+title+
-      " means the formal definition stated above, not 'whatever ridiculous sentence I just said.' "+
-      "If I can explain the definition, identify its important conditions, and tell you what the concept is describing, then the nonsense has successfully carried the facts into my brain. "+
-      "If I only remember the potatoes, I have failed the exam." ;
+    return [
+      "🤪 ABSURD DEFINITION — "+title,
+      "I AM ABOUT TO EXPLAIN "+title+" AND I HAVE ABSOLUTELY NO BUSINESS BEING ALLOWED NEAR A WHITEBOARD.",
+      "THE ACTUAL FACT HIDING INSIDE MY NONSENSE: "+formal,
+      "NOW THE NONSENSE STARTS: "+title+" is when the mathematical universe puts on one shoe, forgets where it left the other shoe, and then says, 'YES, THIS IS FINE, PLEASE CHECK THE CONDITIONS.' I personally would check the fridge, the ceiling fan, three potatoes and possibly the moon, but mathematics is annoyingly more organised than me. The real rule is the definition above. Everything else I say is suspicious.",
+      "HERE IS MY EXTREMELY PROFESSIONAL IDIOT METHOD: First I look at the object. Then I stare at it until it becomes uncomfortable. Then I check the actual defining conditions. If the required conditions are satisfied, I shout 'CONGRATULATIONS, YOU ARE "+title+"!' If they are not satisfied, I throw a tiny imaginary chair at the object and say 'NO, NICE TRY.' The chair has no mathematical significance. I just felt it was necessary.",
+      "WHY DOES THIS THING EXIST? "+why+" Translation from idiot language: people needed a precise rule so they could talk about the same mathematical idea without everybody inventing their own version after eating a sandwich. That precise rule is what matters.",
+      "HOW DO I KNOW I AM NOT MAKING EVERYTHING UP? "+notation+" I use the mathematical properties that actually define the concept. I do NOT decide based on appearance, vibes, horoscope, potato temperature, or whether the number looks confident. If the definition says a condition is required, that condition is required. My brain may be wearing a traffic cone, but the mathematics is still driving the bus.",
+      "FINAL IDIOT CHECK: "+title+" means the formal definition stated above, not 'whatever ridiculous sentence I just said.' If I can explain the definition, identify its important conditions, and tell you what the concept is describing, then the nonsense has successfully carried the facts into my brain. If I only remember the potatoes, I have failed the exam."
+    ];
   }
+
+
   function card(title,body,klass){
     return '<div class="box '+(klass||"")+'"><h4>'+esc(title)+'</h4>'+body+'</div>';
   }
@@ -118,7 +108,7 @@
 
       '<section id="idiotic" class="lesson-section strict-lesson strict-idiotic">'+
       '<h3>🤪 IDIOTIC — ACTUAL DEFINITION IN ABSURD TONE</h3>'+
-      '<div class="idiot-box"><p>'+esc(absurdDefinition(t))+'</p></div></section>'+
+      '<div class="idiot-box">'+absurdDefinitionParts(t).map(function(part){return "<p>"+esc(part)+"</p>";}).join("")+'</div></section>'+
 
       '<section id="math" class="lesson-section strict-lesson strict-math">'+
       '<h3>📐 MATHS — FORMAL MATHEMATICS ONLY</h3><div class="boxes">'+
