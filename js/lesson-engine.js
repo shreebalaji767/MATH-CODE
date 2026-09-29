@@ -80,11 +80,11 @@ const DEEP_CONTENT = {
     definition:"Natural numbers are counting numbers (commonly 1,2,3,...); whole numbers add 0; integers include negatives; rationals are ratios of integers with nonzero denominator; irrationals are real numbers that cannot be written as such a ratio; the real numbers combine rational and irrational numbers; complex numbers have the form a+bi where i²=-1.",
     notation:"N = {1,2,3,...} (convention varies), Z = {...,-2,-1,0,1,2,...}, Q = {a/b : a,b∈Z,b≠0}, R = real numbers, C = {a+bi : a,b∈R}.",
     formula:"i² = -1;  |a+bi| = √(a²+b²).",
-    example: deep.example,\n    actualExample: deep.example,\n    "Classify -3, 0, 1/2, √2, 5 and 2+3i. -3 is an integer and real; 0 is whole/integer/real; 1/2 is rational/real; √2 is irrational/real; 5 is natural/whole/integer/rational/real; 2+3i is complex but not real.",
+    example:"Classify -3, 0, 1/2, √2, 5 and 2+3i. -3 is an integer and real; 0 is whole/integer/real; 1/2 is rational/real; √2 is irrational/real; 5 is natural/whole/integer/rational/real; 2+3i is complex but not real.",
     steps:"1. Ask whether the value is an integer. 2. If not, ask whether it can be written as a ratio of integers. 3. If it is real, determine rational vs irrational. 4. If it has a nonzero imaginary part, it belongs to C but not R.",
     code:"JavaScript Number represents ordinary finite-precision real-like values. BigInt represents arbitrary-size integers. Complex numbers require a custom pair such as {re:2, im:3}.",
     js:"const a = -3;\nconst b = 1 / 2;\nconst huge = 123456789012345678901234567890n;\nconst z = { re: 2, im: 3 };\n\nfunction magnitude(z) {\n  return Math.hypot(z.re, z.im);\n}\nconsole.log(magnitude(z)); // √13",
-    mistakes: deep.mistakes,\n    "Do not assume every decimal is exactly representable. Do not mix Number and BigInt in arithmetic. Do not treat a complex number as an ordinary Number."
+    mistakes:"Do not assume every decimal is exactly representable. Do not mix Number and BigInt in arithmetic. Do not treat a complex number as an ordinary Number."
   },
   "Arithmetic":{
     why:"Arithmetic is the basic operation layer underneath algorithms, counters, measurements, money calculations and almost every numerical program.",
