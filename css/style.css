@@ -322,3 +322,33 @@ textarea,.code,pre{box-sizing:border-box;width:100%}
 .strict-idiotic .idiot-box p{white-space:pre-line;font-size:15px;line-height:1.8;font-weight:600}
 .formal-definition{font-size:15px;line-height:1.75;font-weight:650}
 @media(max-width:760px){.translation-mini{justify-content:flex-start}.translation-mini span{font-size:9px}}
+
+/* FINAL FIX: idiotic definition text must always have explicit high-contrast colors. */
+.strict-idiotic,
+.strict-idiotic h3,
+.strict-idiotic .idiot-box,
+.strict-idiotic .idiot-box p{
+  visibility:visible!important;
+  opacity:1!important;
+}
+.strict-idiotic .idiot-box{
+  display:block!important;
+  background:#fff4d6!important;
+  color:#171a20!important;
+  border:2px solid #d6a800!important;
+  border-left:5px solid #ff8a3d!important;
+}
+.strict-idiotic .idiot-box p{
+  display:block!important;
+  color:#171a20!important;
+  background:transparent!important;
+  font-size:16px!important;
+  line-height:1.8!important;
+  font-weight:700!important;
+  white-space:pre-line!important;
+  text-shadow:none!important;
+}
+.strict-idiotic>h3{
+  color:#171a20!important;
+  visibility:visible!important;
+}
