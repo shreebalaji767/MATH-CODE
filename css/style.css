@@ -300,3 +300,16 @@ textarea,.code,pre{box-sizing:border-box;width:100%}
 .idiot-box p{white-space:pre-line}
 .idiot-box{font-weight:650}
 .idiot-box p::first-line{font-weight:900}
+
+
+/* Final translator readability pass */
+#list .topic-btn,
+#list .topic-btn *{visibility:visible!important;display:block!important;text-shadow:none!important}
+#list .topic-btn .topic-field{font-size:10px!important;line-height:1.25!important;margin-bottom:3px!important}
+#list .topic-btn strong{font-size:14px!important;line-height:1.3!important}
+#list .side-title strong{display:inline-block!important}
+#list .side-title span{display:inline-block!important}
+.strict-complete{display:block;margin-top:8px!important;width:100%;background:#111318;color:#fff;border:0}
+.strict-complete.done{background:#087f6c;color:#fff}
+.strict-idiotic .idiot-box{font-size:16px;min-height:190px}
+.strict-idiotic .idiot-box p{font-weight:650;line-height:1.75}
