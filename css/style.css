@@ -285,3 +285,18 @@ textarea,.code,pre{box-sizing:border-box;width:100%}
 .strict-practice{background:#fafbfc;border:1px solid var(--line)}
 @media(max-width:900px){#list .side-items{max-height:220px}.translation-grid{grid-template-columns:1fr}}
 @media(max-width:600px){#list{padding:8px}.translation-badge{white-space:normal}.translation-grid{grid-template-columns:1fr}}
+
+
+/* Strict translator sidebar visibility + readable controls */
+#list{color:#fff!important;background:#171a20!important}
+#list .side-title strong,#list .side-title span,#list .topic-btn strong,#list .topic-btn .topic-field{visibility:visible!important;opacity:1!important}
+#list .topic-btn{color:#f3f5f8!important;background:#1e222a!important}
+#list .topic-btn strong{color:#fff!important}
+#list .topic-btn .topic-field{color:#b8c0cd!important}
+#list .topic-btn:hover{color:#fff!important;background:#292e38!important}
+#list .topic-btn.active{color:#fff!important;background:#312b69!important}
+#list .topic-btn.active .topic-field{color:#d8d2ff!important}
+.side-title,.side-search,.side-items{visibility:visible!important;opacity:1!important}
+.idiot-box p{white-space:pre-line}
+.idiot-box{font-weight:650}
+.idiot-box p::first-line{font-weight:900}
