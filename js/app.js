@@ -81,41 +81,13 @@ fields.forEach(f=>$('#field').insertAdjacentHTML('beforeend',`<option>${esc(f)}<
 function filtered(){const q=$('#search').value.toLowerCase(),f=$('#field').value,l=$('#level').value;return lessons.filter(t=>(f==='all'||t.field===f)&&(l==='all'||t.level===l)&&(!q||[t.field,t.level,t.title,t.summary,t.keywords.join(' ')].join(' ').toLowerCase().includes(q)));}
 function renderChips(){const a=$('#field').value;$('#chips').innerHTML='<button class="chip '+(a==='all'?'active':'')+'" data-f="all">All</button>'+fields.map(f=>`<button class="chip ${a===f?'active':''}" data-f="${esc(f)}">${esc(f)}</button>`).join('');document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{$('#field').value=b.dataset.f;render();});}
 function render(){renderChips();const xs=filtered();$('#grid').innerHTML=xs.length?xs.map(t=>`<div class="card" data-i="${t.id}"><small>${esc(t.field)} · ${esc(t.level)}</small><h3>${esc(t.title)}</h3><p>${esc(t.summary)}</p></div>`).join(''):'<p>No topics found.</p>';document.querySelectorAll('.card').forEach(c=>c.onclick=()=>openTopic(+c.dataset.i));}
-function box(h,b,idiot){return `<div class="box">${idiot?`<div class="mini-idiot"><b>🤪 Idiot version</b><span>${esc(idiot)}</span></div>`:''}<h4>${h}</h4>${b}</div>`;}
 function openTopic(i){
- if(window.renderSeparatedLesson){window.renderSeparatedLesson(i);return;}
- const t=lessons[i];if(!t)return;
- document.querySelectorAll('.topic-btn').forEach((b,n)=>b.classList.toggle('active',n===i));
- const practice=Array.isArray(t.practice)?t.practice:[];
- $('#detail').innerHTML=`<div class="detail">
- <div class="detail-top"><div><small>${esc(t.field)} · ${esc(t.level)}</small><h3>${esc(t.title)}</h3><p>${esc(t.summary)}</p></div><button id="complete" class="complete ${completed.has(i)?'done':''}">${completed.has(i)?'✓ Completed':'Mark complete'}</button></div>
- <div class="lesson-nav"><a href="#idiotic">Idiotic</a><a href="#math">Math</a><a href="#code">Code</a><a href="#difference">Difference</a><a href="#practice">Practice</a></div>
- <section id="idiotic" class="lesson-section strict-lesson strict-idiotic"><h3>🤪 IDIOTIC — MEMORY ONLY</h3><div class="idiot-box"><p>${esc(t.idioticExplanation||t.idiotLesson||'')}</p></div></section>
- <section id="math" class="lesson-section strict-lesson strict-math"><h3>📐 MATHS — DEFINITION AND MATHEMATICS ONLY</h3>
- <div class="boxes">
- ${box('Definition',`<p>${esc(t.definition||t.math||'')}</p>`)}
- ${box('Why this concept exists',`<p>${esc(t.why||'')}</p>`)}
- ${box('Notation',`<pre class="formula">${esc(t.notation||'')}</pre>`)}
- ${box('Formula / theorem / law',`<pre class="formula">${esc(t.formula||'')}</pre>`)}
- ${box('Worked example',`<p>${esc(t.example||'')}</p>`)}
- ${box('Calculation steps',`<p>${esc(t.steps||t.humanMethod||'')}</p>`)}
- ${box('Exact vs approximate',`<p>${esc(t.exactVsApprox||'')}</p>`)}
- </div></section>
- <section id="code" class="lesson-section strict-lesson strict-code"><h3>💻 CODING — IMPLEMENTATION ONLY</h3>
- <div class="boxes">
- ${box('Data representation',`<pre class="code">${esc(t.representation||t.code||'')}</pre>`)}
- ${box('JavaScript implementation',`<pre class="code">${esc(t.javascript||t.js||'')}</pre>`)}
- ${box('Complexity',`<p>${esc(t.complexity||'')}</p>`)}
- ${box('Precision & numerical issues',`<p>${esc(t.precision||'')}</p>`)}
- ${box('Common implementation mistakes',`<p>${esc(t.mistakes||'')}</p>`)}
- </div></section>
- <section id="difference" class="lesson-section"><h3>Math ↔ Code difference</h3><div class="difference">${esc(t.differenceDetailed||t.difference||'')}</div></section>
- <section id="practice" class="lesson-section"><h3>Practice</h3><div class="practice-list">${practice.map((p,n)=>`<div><b>${n+1}. </b>${esc(p)}</div>`).join('')}</div></section>
- </div>`;
- $('#complete').onclick=()=>{completed.has(i)?completed.delete(i):completed.add(i);localStorage.setItem('mc-completed',JSON.stringify([...completed]));openTopic(i);updateProgress();};
+  if(window.renderSeparatedLesson){
+    window.renderSeparatedLesson(i);
+  }else{
+    setTimeout(function(){ if(window.renderSeparatedLesson) window.renderSeparatedLesson(i); },50);
+  }
 }
-function esc(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');}
-function buildList(){$('#list').innerHTML=lessons.map(t=>`<button class="topic-btn" data-i="${t.id}"><span>${esc(t.field)}</span>${esc(t.title)}</button>`).join('');document.querySelectorAll('.topic-btn').forEach(b=>b.onclick=()=>openTopic(+b.dataset.i));}
 function updateProgress(){const p=lessons.length?Math.round(completed.size/lessons.length*100):0;$('#pct').textContent=p+'%';$('#ring').style.background=`conic-gradient(var(--accent) ${p*3.6}deg,#e7e9ee 0deg)` ;$('#pTitle').textContent=p===100?'Curriculum complete':'Keep going';$('#pText').textContent=`${completed.size} of ${lessons.length} mapped lessons completed on this device.`;}
 $('#search').oninput=render;$('#field').onchange=render;$('#level').onchange=render;
 $('#run').onclick=()=>{const out=[];try{const fn=new Function('console',$('#editor').value);fn({log:(...a)=>out.push(a.map(x=>typeof x==='object'?JSON.stringify(x):String(x)).join(' '))});$('#output').textContent=out.join('\n')||'Code ran with no console output.';}catch(e){$('#output').textContent='Error: '+e.message;}};
