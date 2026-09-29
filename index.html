@@ -18,6 +18,17 @@
 .strict-lesson .box{background:#fff}
 .strict-lesson .idiot-box{margin-bottom:14px}
 @media(max-width:600px){.strict-lesson{padding:13px}.strict-flow{position:static}}
+
+/* Hard separation guard for legacy-rendered lessons: never show memory hooks in Maths or Coding. */
+#detail #math .idiot-box,
+#detail #math .mini-idiot,
+#detail #code .idiot-box,
+#detail #code .mini-idiot,
+#detail #code .code-idiot-box,
+#detail #code .difference.learning-order,
+#detail #learn .mini-idiot {display:none!important}
+#detail #math .box:has(.mini-idiot),
+#detail #code .box:has(.mini-idiot) {display:none!important}
 </style>
 </head>
 <body>
