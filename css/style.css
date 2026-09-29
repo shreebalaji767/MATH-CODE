@@ -352,3 +352,81 @@ textarea,.code,pre{box-sizing:border-box;width:100%}
   color:#171a20!important;
   visibility:visible!important;
 }
+
+/* FINAL SIDEBAR TEXT FIX: override every inherited/transparent rule. */
+#translator #list,
+#translator #list *{
+  visibility:visible!important;
+  opacity:1!important;
+}
+#translator #list{
+  display:block!important;
+  background:#171a20!important;
+  color:#ffffff!important;
+  min-height:180px!important;
+}
+#translator #list .side-title{
+  display:flex!important;
+  color:#ffffff!important;
+  background:#171a20!important;
+}
+#translator #list .side-title strong{
+  display:inline-block!important;
+  color:#ffffff!important;
+  font-size:12px!important;
+  font-weight:900!important;
+}
+#translator #list .side-title span{
+  display:inline-block!important;
+  color:#c7ced8!important;
+}
+#translator #list .side-search{
+  display:block!important;
+}
+#translator #list .side-search input{
+  display:block!important;
+  color:#ffffff!important;
+  background:#0f1116!important;
+  caret-color:#ffffff!important;
+}
+#translator #list .side-items{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:5px!important;
+}
+#translator #list .topic-btn{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  width:100%!important;
+  min-height:48px!important;
+  color:#ffffff!important;
+  background:#252a33!important;
+  border:1px solid #3b4350!important;
+  text-align:left!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+#translator #list .topic-btn .topic-field{
+  display:block!important;
+  color:#cbd2dc!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+#translator #list .topic-btn strong{
+  display:block!important;
+  color:#ffffff!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+#translator #list .topic-btn:hover{
+  background:#343b47!important;
+  color:#ffffff!important;
+}
+#translator #list .topic-btn.active{
+  background:#3b327d!important;
+  border-color:#8d7eff!important;
+  color:#ffffff!important;
+}
