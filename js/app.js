@@ -85,13 +85,32 @@ function box(h,b,idiot){return `<div class="box">${idiot?`<div class="mini-idiot
 function openTopic(i){
  const t=lessons[i];if(!t)return;
  document.querySelectorAll('.topic-btn').forEach((b,n)=>b.classList.toggle('active',n===i));
- $('#detail').innerHTML=`<div class="detail"><div class="detail-top"><div><small>${esc(t.field)} · ${esc(t.level)}</small><h3>${esc(t.title)}</h3><p>${esc(t.summary)}</p></div><button id="complete" class="complete ${completed.has(i)?'done':''}">${completed.has(i)?'✓ Completed':'Mark complete'}</button></div>
- <div class="lesson-nav"><a href="#learn">Learn</a><a href="#math">Math</a><a href="#code">Code</a><a href="#difference">Difference</a><a href="#practice">Practice</a></div>
- <div id="learn" class="lesson-section"><h3>🤪 IDIOTIC → MATHS → CODING</h3><div class="difference learning-order"><b>1. 🤪 IDIOTIC</b> — remember the idea<br><b>2. 📐 MATHS</b> — learn the real rule and calculate it<br><b>3. 💻 CODING</b> — turn the rule into an algorithm and JavaScript</div><div class="boxes">${box('Why this exists',`<p>${esc(t.why||'This mathematical idea gives a precise way to describe or calculate something.')}</p>`)}${box('Step-by-step method',`<p>${esc(t.steps||t.humanMethod)}</p>`)}</div><div class="idiot-box"><div class="idiot-label">🤪 IDIOTIC EXPLANATION — REMEMBER THIS</div><p>${esc(t.idioticExplanation)}</p><small>Funny on purpose. The formal definition below is the actual mathematics.</small></div><div class="boxes">${box('Definition',`<p>${esc(t.definition)}</p>`,t.mathIdioticExplanation)}${box('Intuition',`<p>${esc(t.intuition)}</p>`,t.idioticExplanation)}${box('Human method',`<p>${esc(t.humanMethod)}</p>`,t.mathIdioticExplanation)}${box('Level guidance',`<p>${esc(t.levelNote)}</p>`)}</div></div>
- <div id="math" class="lesson-section"><h3>📐 MATHS — actual mathematics</h3><div class="idiot-box"><div class="idiot-label">🤪 MEMORY HOOK</div><p>${esc(t.mathIdioticExplanation)}</p></div><div class="boxes">${box('Notation / key formula',`<pre class="formula">${esc(t.notation)}</pre>`,t.mathIdioticExplanation)}${box('Formula / law',`<pre class="formula">${esc(t.formula)}</pre>`,t.idioticExplanation)}${box('Worked example',`<p>${esc(t.example)}</p>`,t.mathIdioticExplanation)}${box('Exact vs approximate',`<p>${esc(t.exactVsApprox)}</p>`)}</div></div>
- <div id="code" class="lesson-section"><h3>💻 CODING — actual computer implementation</h3><div class="difference learning-order"><b>Math says:</b> ${esc(t.definition)}<br><b>Code says:</b> ${esc(t.representation)}</div><div class="difference" style="margin-bottom:12px"><b>🤪 Coding explanation:</b> ${esc(t.codeIdioticExplanation)}<br><br><b>What the computer actually does:</b> ${esc(t.representation)}</div><div class="code-idiot-box"><b>🤪 Coding idiot version</b><p>${esc(t.codeIdioticExplanation)}</p></div><div class="boxes">${box('Representation',`<pre class="code">${esc(t.representation)}</pre>`,t.codeIdioticExplanation)}${box('JavaScript implementation',`<pre class="code">${esc(t.javascript)}</pre>`,t.codeIdioticExplanation)}${box('Complexity',`<p>${esc(t.complexity)}</p>`)}${box('Precision & numerical issues',`<p>${esc(t.precision)}</p>`)}</div></div>
- <div id="difference" class="lesson-section"><h3>Math ↔ Code difference</h3><div class="difference">${esc(t.differenceDetailed)}</div><div class="boxes" style="margin-top:12px">${box('Common programming mistakes',`<p>${esc(t.mistakes)}</p>`)}${box('Related ideas',`<p>${t.related.map(x=>`<span class="tag">${esc(x)}</span>`).join(' ')}</p>`)}</div></div>
- <div id="practice" class="lesson-section"><h3>Practice & coding challenge</h3><div class="practice-list">${t.practice.map((p,n)=>`<div><b>${n+1}</b>${esc(p)}</div>`).join('')}</div></div></div>`;
+ const practice=Array.isArray(t.practice)?t.practice:[];
+ $('#detail').innerHTML=`<div class="detail">
+ <div class="detail-top"><div><small>${esc(t.field)} · ${esc(t.level)}</small><h3>${esc(t.title)}</h3><p>${esc(t.summary)}</p></div><button id="complete" class="complete ${completed.has(i)?'done':''}">${completed.has(i)?'✓ Completed':'Mark complete'}</button></div>
+ <div class="lesson-nav"><a href="#idiotic">Idiotic</a><a href="#math">Math</a><a href="#code">Code</a><a href="#difference">Difference</a><a href="#practice">Practice</a></div>
+ <section id="idiotic" class="lesson-section strict-lesson strict-idiotic"><h3>🤪 IDIOTIC — MEMORY ONLY</h3><div class="idiot-box"><p>${esc(t.idioticExplanation||t.idiotLesson||'')}</p></div></section>
+ <section id="math" class="lesson-section strict-lesson strict-math"><h3>📐 MATHS — DEFINITION AND MATHEMATICS ONLY</h3>
+ <div class="boxes">
+ ${box('Definition',`<p>${esc(t.definition||t.math||'')}</p>`)}
+ ${box('Why this concept exists',`<p>${esc(t.why||'')}</p>`)}
+ ${box('Notation',`<pre class="formula">${esc(t.notation||'')}</pre>`)}
+ ${box('Formula / theorem / law',`<pre class="formula">${esc(t.formula||'')}</pre>`)}
+ ${box('Worked example',`<p>${esc(t.example||'')}</p>`)}
+ ${box('Calculation steps',`<p>${esc(t.steps||t.humanMethod||'')}</p>`)}
+ ${box('Exact vs approximate',`<p>${esc(t.exactVsApprox||'')}</p>`)}
+ </div></section>
+ <section id="code" class="lesson-section strict-lesson strict-code"><h3>💻 CODING — IMPLEMENTATION ONLY</h3>
+ <div class="boxes">
+ ${box('Data representation',`<pre class="code">${esc(t.representation||t.code||'')}</pre>`)}
+ ${box('JavaScript implementation',`<pre class="code">${esc(t.javascript||t.js||'')}</pre>`)}
+ ${box('Complexity',`<p>${esc(t.complexity||'')}</p>`)}
+ ${box('Precision & numerical issues',`<p>${esc(t.precision||'')}</p>`)}
+ ${box('Common implementation mistakes',`<p>${esc(t.mistakes||'')}</p>`)}
+ </div></section>
+ <section id="difference" class="lesson-section"><h3>Math ↔ Code difference</h3><div class="difference">${esc(t.differenceDetailed||t.difference||'')}</div></section>
+ <section id="practice" class="lesson-section"><h3>Practice</h3><div class="practice-list">${practice.map((p,n)=>`<div><b>${n+1}. </b>${esc(p)}</div>`).join('')}</div></section>
+ </div>`;
  $('#complete').onclick=()=>{completed.has(i)?completed.delete(i):completed.add(i);localStorage.setItem('mc-completed',JSON.stringify([...completed]));openTopic(i);updateProgress();};
 }
 function esc(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');}
