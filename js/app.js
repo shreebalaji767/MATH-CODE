@@ -83,6 +83,7 @@ function renderChips(){const a=$('#field').value;$('#chips').innerHTML='<button 
 function render(){renderChips();const xs=filtered();$('#grid').innerHTML=xs.length?xs.map(t=>`<div class="card" data-i="${t.id}"><small>${esc(t.field)} · ${esc(t.level)}</small><h3>${esc(t.title)}</h3><p>${esc(t.summary)}</p></div>`).join(''):'<p>No topics found.</p>';document.querySelectorAll('.card').forEach(c=>c.onclick=()=>openTopic(+c.dataset.i));}
 function box(h,b,idiot){return `<div class="box">${idiot?`<div class="mini-idiot"><b>🤪 Idiot version</b><span>${esc(idiot)}</span></div>`:''}<h4>${h}</h4>${b}</div>`;}
 function openTopic(i){
+ if(window.renderSeparatedLesson){window.renderSeparatedLesson(i);return;}
  const t=lessons[i];if(!t)return;
  document.querySelectorAll('.topic-btn').forEach((b,n)=>b.classList.toggle('active',n===i));
  const practice=Array.isArray(t.practice)?t.practice:[];
