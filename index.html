@@ -30,7 +30,14 @@
 #detail #math .box:has(.mini-idiot),
 #detail #code .box:has(.mini-idiot) {display:none!important}
 </style>
-</head>
+<style>
+/* Translator sidebar must remain visible on desktop and mobile. */
+#translator .translate{display:grid!important;grid-template-columns:minmax(230px,280px) minmax(0,1fr)!important;align-items:start!important;gap:18px!important}
+#translator #list{display:block!important;visibility:visible!important;opacity:1!important;min-height:180px!important;max-height:680px!important;overflow:auto!important;background:#171a20!important;color:#fff!important;position:sticky!important;top:88px!important;z-index:5!important}
+#translator #list .side-items{display:flex!important;visibility:visible!important;opacity:1!important}
+#translator #list .topic-btn{display:flex!important;visibility:visible!important;opacity:1!important}
+@media(max-width:900px){#translator .translate{grid-template-columns:1fr!important}#translator #list{position:relative!important;top:auto!important;max-height:300px!important}}
+</style>\n</head>
 <body>
 <header class="nav"><a class="logo" href="#"><b>∑→</b> Math → Code</a><nav><a href="#curriculum">Curriculum</a><a href="#translator">Translator</a><a href="#playground">Playground</a><a href="#progress">Progress</a></nav></header>
 <main>
@@ -51,5 +58,5 @@ const result = x ** 2 + 2 * x + 1;
 console.log(result);</textarea></div><div class="panel"><header>Output <button id="clear">Clear</button></header><pre id="output">Ready.</pre></div></div></section>
 <section id="progress" class="section"><div class="heading"><div><small>NO ACCOUNT NEEDED</small><h2>Progress stays in your browser.</h2></div><p>Completed topics are stored with localStorage. No database, login or signup.</p></div><div class="progress"><div id="ring"><span id="pct">0%</span></div><div><h3 id="pTitle">Start exploring</h3><p id="pText">Open a topic and mark it complete.</p><button id="reset" class="btn danger">Reset local progress</button></div></div></section>
 </main><footer><span>Math → Code Translator</span><span>Static • No DB • No Login • No Signup</span></footer>
-<script src="js/topics.js"></script><script src="js/advanced-curriculum.js"></script><script src="js/lesson-engine.js"></script><script src="js/app.js"></script><script src="js/separated-lesson-ui.js?v=5"></script>
+<script src="js/topics.js"></script><script src="js/advanced-curriculum.js"></script><script src="js/lesson-engine.js"></script><script src="js/app.js"></script><script src="js/separated-lesson-ui.js?v=6"></script>
 </body></html>
