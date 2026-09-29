@@ -59,22 +59,28 @@
     var why=clean(t.why)||"It gives us a precise way to describe or reason about the idea.";
     var notation=clean(t.notation)||"Use the notation appropriate to the definition.";
     return "🤪 ABSURD DEFINITION — "+title+"\\n\\n"+
-      "OKAY, LISTEN, I AM THE IDIOT WHO HAS TO EXPLAIN THIS: "+title+
-      " is basically this mathematical thing: "+formal+"\\n\\n"+
-      "NOW MY BRAIN VERSION: I have put the entire definition into my tiny brain and it is making microwave noises. "+
-      "The important part is STILL the same: if the mathematical conditions described above are satisfied, the object belongs to this concept; "+
-      "if those required conditions are not satisfied, I am not allowed to yell \\"YES, THAT IS "+title+"!\\" just because it looks suspiciously similar. "+
-      "So I check the actual rule, not my feelings, not vibes, not the object's hairstyle, and definitely not what my uncle shouted from the kitchen.\\n\\n"+
-      "WHY THIS WEIRD THING EXISTS: "+why+" "+
-      "In idiot language: mathematicians needed a reliable rule instead of everybody pointing at numbers/shapes/objects and screaming different answers. "+
-      "This concept gives them that rule.\\n\\n"+
-      "HOW I RECOGNISE IT WITHOUT DESTROYING THE UNIVERSE: "+notation+" "+
-      "I look for the defining properties, check them properly, and then decide whether the thing qualifies. "+
-      "I do NOT replace the definition with the joke. The joke is wearing a stupid hat; the mathematical facts underneath are still the boss.\\n\\n"+
-      "IDIOT MEMORY TEST: If someone wakes me up at 3 AM and asks, \\"WHAT IS "+title+"?\\" I should be able to explain the real definition, name the conditions that matter, and say what the concept is used to describe or determine. "+
-      "If all I can say is \\"HAHA SECURITY GUARD\\", congratulations, I remembered absolutely nothing.";
+      "I AM ABOUT TO EXPLAIN "+title+" AND I HAVE ABSOLUTELY NO BUSINESS BEING ALLOWED NEAR A WHITEBOARD.\\n\\n"+
+      "THE ACTUAL FACT HIDING INSIDE MY NONSENSE: "+formal+"\\n\\n"+
+      "NOW THE NONSENSE STARTS: "+title+
+      " is when the mathematical universe puts on one shoe, forgets where it left the other shoe, and then says, 'YES, THIS IS FINE, PLEASE CHECK THE CONDITIONS.' "+
+      "I personally would check the fridge, the ceiling fan, three potatoes and possibly the moon, but mathematics is annoyingly more organised than me. "+
+      "The real rule is the definition above. Everything else I say is suspicious.\\n\\n"+
+      "HERE IS MY EXTREMELY PROFESSIONAL IDIOT METHOD: First I look at the object. Then I stare at it until it becomes uncomfortable. "+
+      "Then I check the actual defining conditions. If the required conditions are satisfied, I shout 'CONGRATULATIONS, YOU ARE "+title+"!' "+
+      "If they are not satisfied, I throw a tiny imaginary chair at the object and say 'NO, NICE TRY.' "+
+      "The chair has no mathematical significance. I just felt it was necessary.\\n\\n"+
+      "WHY DOES THIS THING EXIST? "+why+" "+
+      "Translation from idiot language: people needed a precise rule so they could talk about the same mathematical idea without everybody inventing their own version after eating a sandwich. "+
+      "That precise rule is what matters.\\n\\n"+
+      "HOW DO I KNOW I AM NOT MAKING EVERYTHING UP? "+notation+" "+
+      "I use the mathematical properties that actually define the concept. "+
+      "I do NOT decide based on appearance, vibes, horoscope, potato temperature, or whether the number looks confident. "+
+      "If the definition says a condition is required, that condition is required. My brain may be wearing a traffic cone, but the mathematics is still driving the bus.\\n\\n"+
+      "FINAL IDIOT CHECK: "+title+
+      " means the formal definition stated above, not 'whatever ridiculous sentence I just said.' "+
+      "If I can explain the definition, identify its important conditions, and tell you what the concept is describing, then the nonsense has successfully carried the facts into my brain. "+
+      "If I only remember the potatoes, I have failed the exam." ;
   }
-
   function card(title,body,klass){
     return '<div class="box '+(klass||"")+'"><h4>'+esc(title)+'</h4>'+body+'</div>';
   }
