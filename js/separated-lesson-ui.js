@@ -56,17 +56,23 @@
   function absurdDefinition(t){
     var title=clean(t.title)||"this concept";
     var formal=clean(t.definition||t.math)||"a precise mathematical concept";
-    return "🤪 ABSURD DEFINITION — "+title+"\n\n"+
-      "WHAT IT ACTUALLY MEANS: "+formal+"\n\n"+
-      "ABSURD VERSION OF THE SAME DEFINITION: Imagine "+title+
-      " is a ridiculous mathematical security guard carrying a giant clipboard. "+
-      "It checks every condition in the definition one by one. If the conditions are satisfied, "+
-      "it stamps the object MATHEMATICALLY LEGAL. If even one required condition fails, "+
-      "the guard throws the object into the bin labelled NOT THIS THING. "+
-      "The joke is only the costume; the rule being enforced is the real definition.\n\n"+
-      "MEMORY TEST: You should be able to say what "+title+
-      " IS, what conditions make something qualify, and what the concept lets you determine. "+
-      "If you can do that, you remembered the definition rather than merely the joke.";
+    var why=clean(t.why)||"It gives us a precise way to describe or reason about the idea.";
+    var notation=clean(t.notation)||"Use the notation appropriate to the definition.";
+    return "🤪 ABSURD DEFINITION — "+title+"\\n\\n"+
+      "OKAY, LISTEN, I AM THE IDIOT WHO HAS TO EXPLAIN THIS: "+title+
+      " is basically this mathematical thing: "+formal+"\\n\\n"+
+      "NOW MY BRAIN VERSION: I have put the entire definition into my tiny brain and it is making microwave noises. "+
+      "The important part is STILL the same: if the mathematical conditions described above are satisfied, the object belongs to this concept; "+
+      "if those required conditions are not satisfied, I am not allowed to yell \\"YES, THAT IS "+title+"!\\" just because it looks suspiciously similar. "+
+      "So I check the actual rule, not my feelings, not vibes, not the object's hairstyle, and definitely not what my uncle shouted from the kitchen.\\n\\n"+
+      "WHY THIS WEIRD THING EXISTS: "+why+" "+
+      "In idiot language: mathematicians needed a reliable rule instead of everybody pointing at numbers/shapes/objects and screaming different answers. "+
+      "This concept gives them that rule.\\n\\n"+
+      "HOW I RECOGNISE IT WITHOUT DESTROYING THE UNIVERSE: "+notation+" "+
+      "I look for the defining properties, check them properly, and then decide whether the thing qualifies. "+
+      "I do NOT replace the definition with the joke. The joke is wearing a stupid hat; the mathematical facts underneath are still the boss.\\n\\n"+
+      "IDIOT MEMORY TEST: If someone wakes me up at 3 AM and asks, \\"WHAT IS "+title+"?\\" I should be able to explain the real definition, name the conditions that matter, and say what the concept is used to describe or determine. "+
+      "If all I can say is \\"HAHA SECURITY GUARD\\", congratulations, I remembered absolutely nothing.";
   }
 
   function card(title,body,klass){
