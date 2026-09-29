@@ -89,7 +89,21 @@
   root.querySelector(".copy-code")?.addEventListener("click",async e=>{try{await navigator.clipboard.writeText(javascript);e.currentTarget.textContent="✓ Copied";setTimeout(()=>e.currentTarget.textContent="Copy JavaScript",1200);}catch(_){e.currentTarget.textContent="Copy unavailable";}});
  }
  function install(){
-  const lessons=Array.isArray(window.LESSONS)?window.LESSONS:[];
+  let lessons=Array.isArray(window.LESSONS)?window.LESSONS:[];
+  if(!lessons.length && Array.isArray(window.TOPICS)){
+   lessons=window.TOPICS.map((t,i)=>({
+    id:i,field:t[0],level:t[1],title:t[2],summary:t[3],math:t[4],code:t[5],difference:t[6],
+    keywords:String(t[7]||'').split('|').filter(Boolean),definition:t[4],why:'This concept exists to give a precise mathematical model for '+t[3].toLowerCase()+'.',
+    notation:'Use the standard notation introduced by the mathematical definition.',formula:'Apply the definition, theorem, identity, or standard law for this concept.',
+    steps:'1. State the definition. 2. Identify the known values and conditions. 3. Apply the rule. 4. Calculate. 5. Verify.',
+    representation:t[5],codingLesson:t[5],javascript:'// Translate the mathematical rule into JavaScript.\\nfunction solve(input){ return input; }',
+    differenceDetailed:t[6],complexity:'Depends on the chosen algorithm and representation.',precision:'Check rounding, finite precision, domain restrictions, and overflow.',
+    exactVsApprox:'Exact mathematics follows the definition exactly; machine arithmetic may use finite approximations.',
+    mistakes:'Do not confuse mathematical notation with executable code; validate domains and edge cases.',
+    example:'Take a small valid example, substitute concrete values, calculate step by step, and verify the result.',
+    practice:['Explain the definition in your own words.','Work one small example by hand.','Implement the rule in JavaScript and test an edge case.']
+   }));
+  }
   if(!lessons.length)return;
   window.__MATH_CODE_LESSONS=lessons;
   try{window.__MC_COMPLETED=new Set(JSON.parse(localStorage.getItem("mc-completed")||"[]"));}catch(_){window.__MC_COMPLETED=new Set();}
