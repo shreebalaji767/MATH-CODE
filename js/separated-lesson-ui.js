@@ -33,32 +33,43 @@
   if(!t||!root)return;
   const buttons=[...document.querySelectorAll("#list .topic-btn")];
   buttons.forEach((b,n)=>b.classList.toggle("active",n===i));
-  const definition=clean(t.definition||t.math);
-  const code=clean(t.codingLesson||t.code);
-  const practice=Array.isArray(t.practice)?t.practice:[];
+  const definition=clean(t.definition||t.math)||"A formal definition for this lesson is being generated from the curriculum entry.";
+  const why=clean(t.why)||"This concept exists to give a precise rule for describing, classifying, calculating, or reasoning about the mathematical objects in this lesson.";
+  const notation=clean(t.notation)||"Use the symbols introduced by the definition; notation names mathematical objects and relationships precisely.";
+  const formula=clean(t.formula)||"No single formula is required; apply the definition, theorem, identity, or standard law for this concept.";
+  const example=clean(t.example)||"Choose a small valid example, substitute concrete values, calculate step by step, and verify the result against the definition.";
+  const steps=clean(t.steps||t.humanMethod)||"1. State the definition. 2. Identify known values and conditions. 3. Apply the rule. 4. Calculate. 5. Verify the result.";
+  const exact=clean(t.exactVsApprox)||"Exact mathematics follows the definition exactly; numerical code may use finite approximations.";
+  const representation=clean(t.representation)||clean(t.code)||"Choose a data representation that preserves the mathematical information needed by the algorithm.";
+  const code=clean(t.codingLesson||t.code)||"Translate the mathematical rule into explicit data, operations, control flow, and validation.";
+  const javascript=clean(t.javascript)||"// Translate the definition into explicit JavaScript operations.\\nfunction solve(input){ return input; }";
+  const complexity=clean(t.complexity)||"Depends on the chosen representation and algorithm.";
+  const precision=clean(t.precision)||"Check rounding, overflow, underflow, tolerances, and domain restrictions when using finite machine numbers.";
+  const mistakes=clean(t.mistakes)||"Do not confuse the mathematical definition with its computer representation; validate domains and edge cases.";
+  const practice=Array.isArray(t.practice)?t.practice:["Explain the definition in your own words.","Work one small example by hand.","Implement the rule in JavaScript and test an edge case."];
   root.innerHTML=
    '<div class="detail">'+
    '<div class="detail-top"><div><div class="lesson-kicker">'+esc(t.field)+' · '+esc(t.level)+'</div><h3>'+esc(t.title)+'</h3><p>'+esc(t.summary)+'</p></div>'+
-   '<div><div class="translation-badge">🤪 Memory → 📐 Mathematics → 💻 Code</div><button type="button" class="complete strict-complete" data-complete>'+((window.__MC_COMPLETED?.has(i))?"✓ Completed":"Mark complete")+'</button></div></div>'+
+   '<div><div class="translation-badge">🤪 Memory → 📐 Mathematics → 💻 Code</div><div class="translation-mini"><span>🤪 Remember the idea</span><span>→</span><span>📐 State the rule</span><span>→</span><span>💻 Implement the rule</span></div><button type="button" class="complete strict-complete" data-complete>'+((window.__MC_COMPLETED?.has(i))?"✓ Completed":"Mark complete")+'</button></div></div>'+
    '<div class="lesson-tools strict-flow"><button class="lesson-tool" data-local-prev>← Previous</button><span>Lesson '+(i+1)+' / '+window.__MATH_CODE_LESSONS.length+'</span><button class="lesson-tool" data-local-next>Next →</button></div>'+
    '<nav class="lesson-nav"><a href="#idiotic">🤪 Idiotic</a><a href="#math">📐 Maths</a><a href="#coding">💻 Coding</a><a href="#difference">↔ Difference</a><a href="#practice">✓ Practice</a></nav>'+
    '<section id="idiotic" class="lesson-section strict-lesson strict-idiotic"><div class="section-label">LAYER 1 · MEMORY</div><h3>🤪 IDIOTIC — ABSURD DEFINITION</h3><div class="idiot-box"><p>'+esc(absurdDefinition(t))+'</p></div></section>'+
    '<section id="math" class="lesson-section strict-lesson strict-math"><div class="section-label">LAYER 2 · FORMAL MATHEMATICS</div><h3>📐 MATHS — DEFINITION AND MATHEMATICS ONLY</h3><div class="translation-grid">'+
-   card("Why this concept exists",'<p>'+esc(whyText(t))+'</p>')+
-   card("Definition",'<p class="formal-definition">'+esc(definition||"The formal definition for this lesson has not been supplied yet.")+'</p>')+
-   card("Notation",'<pre class="formula">'+esc(t.notation||"")+'</pre>')+
-   card("Formula / theorem / law",'<pre class="formula">'+esc(t.formula||"")+'</pre>')+
-   card("Worked example",'<p>'+esc(t.example||"")+'</p>')+
-   card("Calculation steps",'<p>'+esc(t.steps||t.humanMethod||"")+'</p>')+
-   card("Exact vs approximate",'<p>'+esc(t.exactVsApprox||"")+'</p>')+
+   card("Why this concept exists",'<p>'+esc(why)+'</p>')+
+   card("Definition",'<p class="formal-definition">'+esc(definition)+'</p>')+
+   card("Notation",'<pre class="formula">'+esc(notation)+'</pre>')+
+   card("Formula / theorem / law",'<pre class="formula">'+esc(formula)+'</pre>')+
+   card("Worked example",'<p>'+esc(example)+'</p>')+
+   card("Calculation steps",'<p>'+esc(steps)+'</p>')+
+   card("Exact vs approximate",'<p>'+esc(exact)+'</p>')+
    '</div></section>'+
    '<section id="coding" class="lesson-section strict-lesson strict-code"><div class="section-label">LAYER 3 · IMPLEMENTATION</div><h3>💻 CODING — IMPLEMENTATION ONLY</h3><div class="translation-grid">'+
-   card("Data representation",'<pre class="code">'+esc(t.representation||"")+'</pre>')+
+   card("Data representation",'<pre class="code">'+esc(representation)+'</pre>')+
    card("Algorithm / procedure",'<p>'+esc(code)+'</p>')+
-   card("JavaScript implementation",'<pre class="code">'+esc(t.javascript||"")+'</pre><button type="button" class="lesson-tool copy-code">Copy JavaScript</button>')+
-   card("Time and space complexity",'<p>'+esc(t.complexity||"")+'</p>')+
-   card("Precision issues",'<p>'+esc(t.precision||"")+'</p>')+
-   card("Coding mistakes",'<p>'+esc(t.mistakes||"")+'</p>')+
+   card("JavaScript implementation",'<pre class="code">'+esc(javascript)+'</pre><button type="button" class="lesson-tool copy-code">Copy JavaScript</button>')+
+   card("Time and space complexity",'<p>'+esc(complexity)+'</p>')+
+   card("Precision issues",'<p>'+esc(precision)+'</p>')+
+   card("Coding mistakes",'<p>'+esc(mistakes)+'</p>')+
    '</div></section>'+
    '<section id="difference" class="lesson-section strict-lesson strict-difference"><div class="section-label">TRANSLATION</div><h3>↔ Math → Code difference</h3><p>'+esc(t.differenceDetailed||t.difference||"")+'</p></section>'+
    '<section id="practice" class="lesson-section strict-lesson strict-practice"><div class="section-label">CHECK YOURSELF</div><h3>✓ Practice</h3><div class="practice-list">'+practice.map((p,n)=>'<div><b>'+(n+1)+'</b>'+esc(p)+'</div>').join("")+'</div></section>'+
@@ -75,7 +86,7 @@
   if(prev)prev.disabled=i<=0;if(next)next.disabled=i>=window.__MATH_CODE_LESSONS.length-1;
   prev?.addEventListener("click",()=>{if(i>0)render(i-1);});
   next?.addEventListener("click",()=>{if(i<window.__MATH_CODE_LESSONS.length-1)render(i+1);});
-  root.querySelector(".copy-code")?.addEventListener("click",async e=>{try{await navigator.clipboard.writeText(t.javascript||"");e.currentTarget.textContent="✓ Copied";setTimeout(()=>e.currentTarget.textContent="Copy JavaScript",1200);}catch(_){e.currentTarget.textContent="Copy unavailable";}});
+  root.querySelector(".copy-code")?.addEventListener("click",async e=>{try{await navigator.clipboard.writeText(javascript);e.currentTarget.textContent="✓ Copied";setTimeout(()=>e.currentTarget.textContent="Copy JavaScript",1200);}catch(_){e.currentTarget.textContent="Copy unavailable";}});
  }
  function install(){
   const lessons=Array.isArray(window.LESSONS)?window.LESSONS:[];
