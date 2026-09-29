@@ -20,12 +20,12 @@
   const formal=clean(t.definition||t.math)||("a mathematical idea called "+title);
   const summary=clean(t.summary);
   return "🤪 ABSURD DEFINITION — "+title+"\n\n"+
-   "Officially, "+formal+
+   "What it actually means: "+formal+
    "\n\n"+
-   "Now the brain-in-a-cartoon version: imagine "+title+" as a ridiculously overqualified little creature whose ONLY job is to obey that rule. It cannot negotiate, improvise, or say “close enough.” If the rule says something must be true, our creature stamps it TRUE; if the rule is not satisfied, it throws a tiny mathematical tantrum. "+
-   (summary?"The creature is useful because this lesson is really about "+summary.toLowerCase()+". ":"")+
-   "\n\n"+
-   "So the absurd memory definition is still the real definition: the joke changes the costume, not the meaning. Read the official sentence above, then remember it by picturing the creature enforcing it with a giant rubber stamp.";
+   "Absurd version of the SAME definition: imagine "+title+" is a bizarre little mathematical law-enforcer. Its entire job is to make every object obey the rule above. It walks around with a giant clipboard, checks the conditions one by one, and refuses to accept “almost.” If the conditions are satisfied, it shouts “MATHEMATICALLY LEGAL!” and stamps the object. If they are not satisfied, it throws the object into the tiny bin marked NOT THIS THING.\n\n"+
+   (summary?"In practical terms, this lesson is about "+summary.toLowerCase()+". So the creature is not random: its ridiculous behaviour is a memory picture for the actual mathematical idea. ":"")+
+   "The important part is the definition itself. The absurd story is only the costume: remember the rule, the conditions, and what the rule lets you determine.\n\n"+
+   "MEMORY TEST: if you can explain what "+title+" IS, what condition makes something qualify, and what the concept lets you calculate or conclude, then you remembered the definition—not merely the joke.";
  }
 
  function render(i){
@@ -39,7 +39,7 @@
   root.innerHTML=
    '<div class="detail">'+
    '<div class="detail-top"><div><div class="lesson-kicker">'+esc(t.field)+' · '+esc(t.level)+'</div><h3>'+esc(t.title)+'</h3><p>'+esc(t.summary)+'</p></div>'+
-   '<div class="translation-badge">🤪 Memory → 📐 Mathematics → 💻 Code</div></div>'+
+   '<div><div class="translation-badge">🤪 Memory → 📐 Mathematics → 💻 Code</div><button type="button" class="complete strict-complete" data-complete>'+((window.__MC_COMPLETED?.has(i))?"✓ Completed":"Mark complete")+'</button></div></div>'+
    '<div class="lesson-tools strict-flow"><button class="lesson-tool" data-local-prev>← Previous</button><span>Lesson '+(i+1)+' / '+window.__MATH_CODE_LESSONS.length+'</span><button class="lesson-tool" data-local-next>Next →</button></div>'+
    '<nav class="lesson-nav"><a href="#idiotic">🤪 Idiotic</a><a href="#math">📐 Maths</a><a href="#coding">💻 Coding</a><a href="#difference">↔ Difference</a><a href="#practice">✓ Practice</a></nav>'+
    '<section id="idiotic" class="lesson-section strict-lesson strict-idiotic"><div class="section-label">LAYER 1 · MEMORY</div><h3>🤪 IDIOTIC — ABSURD DEFINITION</h3><div class="idiot-box"><p>'+esc(absurdDefinition(t))+'</p></div></section>'+
@@ -63,6 +63,14 @@
    '<section id="difference" class="lesson-section strict-lesson strict-difference"><div class="section-label">TRANSLATION</div><h3>↔ Math → Code difference</h3><p>'+esc(t.differenceDetailed||t.difference||"")+'</p></section>'+
    '<section id="practice" class="lesson-section strict-lesson strict-practice"><div class="section-label">CHECK YOURSELF</div><h3>✓ Practice</h3><div class="practice-list">'+practice.map((p,n)=>'<div><b>'+(n+1)+'</b>'+esc(p)+'</div>').join("")+'</div></section>'+
    '</div>';
+  const complete=root.querySelector("[data-complete]");
+  complete?.addEventListener("click",()=>{
+   const key="mc-completed";let done=new Set();
+   try{done=new Set(JSON.parse(localStorage.getItem(key)||"[]"));}catch(_){}
+   done.has(i)?done.delete(i):done.add(i);
+   window.__MC_COMPLETED=done;localStorage.setItem(key,JSON.stringify([...done]));
+   complete.textContent=done.has(i)?"✓ Completed":"Mark complete";
+  });
   const prev=root.querySelector("[data-local-prev]"),next=root.querySelector("[data-local-next]");
   if(prev)prev.disabled=i<=0;if(next)next.disabled=i>=window.__MATH_CODE_LESSONS.length-1;
   prev?.addEventListener("click",()=>{if(i>0)render(i-1);});
@@ -73,6 +81,7 @@
   const lessons=Array.isArray(window.LESSONS)?window.LESSONS:[];
   if(!lessons.length)return;
   window.__MATH_CODE_LESSONS=lessons;
+  try{window.__MC_COMPLETED=new Set(JSON.parse(localStorage.getItem("mc-completed")||"[]"));}catch(_){window.__MC_COMPLETED=new Set();}
   window.renderSeparatedLesson=render;
   const list=document.querySelector("#list");
   if(list){
