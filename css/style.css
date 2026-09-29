@@ -249,3 +249,39 @@ textarea,.code,pre{box-sizing:border-box;width:100%}
   .stats span:last-child{grid-column:auto}
   .btn,.complete{font-size:14px}
 }
+
+/* =========================================================
+   TRANSLATOR UI — high-contrast lesson sidebar + clear layers
+   ========================================================= */
+#list{background:#171a20;border:1px solid #303641;border-radius:14px;padding:10px;color:#fff}
+#list .side-title{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px 10px;color:#fff;border-bottom:1px solid #303641;margin-bottom:8px}
+#list .side-title strong{font:800 12px/1 'DM Mono';letter-spacing:.12em}
+#list .side-title span{font:700 10px/1 'DM Mono';color:#aeb6c4}
+#list .side-search{padding:0 0 9px}
+#list .side-search input{width:100%;height:38px;border:1px solid #3a414d;border-radius:8px;background:#0f1116;color:#fff;padding:0 10px;outline:none;font-size:12px}
+#list .side-search input::placeholder{color:#8e97a6}
+#list .side-search input:focus{border-color:#6957ff;box-shadow:0 0 0 2px #6957ff33}
+#list .side-items{display:flex;flex-direction:column;gap:5px;max-height:560px;overflow:auto;padding-right:2px}
+#list .topic-btn{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;border:1px solid transparent;background:#1e222a;color:#f3f5f8;text-align:left;padding:10px 11px;border-radius:9px;cursor:pointer;font-weight:700;font-size:12px;line-height:1.25}
+#list .topic-btn strong{display:block;color:#fff;font-size:12px;font-weight:800}
+#list .topic-btn .topic-field{display:block;color:#aeb6c4;font:700 9px/1 'DM Mono';letter-spacing:.08em;text-transform:uppercase}
+#list .topic-btn:hover{background:#292e38;border-color:#454d5a;color:#fff}
+#list .topic-btn.active{background:#312b69;border-color:#6957ff;box-shadow:inset 3px 0 0 #8d7eff}
+#list .topic-btn.active .topic-field{color:#c9c2ff}
+#list .topic-btn[hidden]{display:none}
+#list .side-items::-webkit-scrollbar{width:7px}
+#list .side-items::-webkit-scrollbar-thumb{background:#454d5a;border-radius:99px}
+
+.lesson-kicker{font:700 10px/1 'DM Mono';letter-spacing:.1em;text-transform:uppercase;color:#6957ff;margin-bottom:7px}
+.translation-badge{align-self:flex-start;white-space:nowrap;background:#f1efff;border:1px solid #d9d5ff;color:#5145a8;border-radius:999px;padding:8px 11px;font:800 10px/1 'DM Mono'}
+.section-label{font:800 9px/1 'DM Mono';letter-spacing:.14em;text-transform:uppercase;color:#69707d;margin-bottom:7px}
+.strict-lesson>h3{margin-top:0}
+.strict-math .section-label{color:#5145a8}
+.strict-code .section-label{color:#087f6c}
+.strict-idiotic .section-label{color:#7a5b00}
+.translation-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.formal-definition{font-size:15px;font-weight:650}
+.strict-difference{background:#f6f3ff;border:1px solid #d9d5ff}
+.strict-practice{background:#fafbfc;border:1px solid var(--line)}
+@media(max-width:900px){#list .side-items{max-height:220px}.translation-grid{grid-template-columns:1fr}}
+@media(max-width:600px){#list{padding:8px}.translation-badge{white-space:normal}.translation-grid{grid-template-columns:1fr}}
